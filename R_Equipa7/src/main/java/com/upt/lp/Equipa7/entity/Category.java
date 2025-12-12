@@ -8,20 +8,23 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	private String name;
 	
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Transaction>transactions;
 	
-	private int budget;
+	private double budget;
 	
 	public Category() {}
 
-	public Category(Long id, String name, List<Transaction> transactions, int budget) {
+	public Category(Long id, String name, double budget) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.transactions = transactions;
 		this.budget = budget;
 	}
 	
@@ -50,11 +53,19 @@ public class Category {
 		this.transactions = transactions;
 	}
 
-	public int getBudget() {
+	public double getBudget() {
 		return budget;
 	}
 
-	public void setBudget(int budget) {
+	public void setBudget(double budget) {
 		this.budget = budget;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

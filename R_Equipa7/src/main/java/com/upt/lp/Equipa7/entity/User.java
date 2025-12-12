@@ -1,4 +1,5 @@
 package com.upt.lp.Equipa7.entity;
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,17 +14,25 @@ public class User {
 	
 	private String password;
 	
-	public User ( ) {}
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Category> categories;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Transaction> transactions;
+	
+	private double balance;
+	
+	public User( ) {}
 
 	public User(Long id, String username, String email, String password) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-	}
+			super();
+			this.id = id;
+			this.username = username;
+			this.email = email;
+			this.password = password;
+		}
 
-////Getters and setters///////////
+	////Getters and setters///////////
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +64,28 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 }

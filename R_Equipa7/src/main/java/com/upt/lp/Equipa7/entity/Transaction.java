@@ -16,18 +16,22 @@ public class Transaction {
 	
 	private int value;
 	
-	public Transaction () {}
+	private String paymentMethod;
 	
-public Transaction(Long id, LocalDate date, Category category, String description, int value) {
-		super();
-		this.id = id;
-		this.date = date;
-		this.category = category;
-		this.description = description;
-		this.value = value;
-	}
+	public Transaction () {}
 
-////Getters and setters///////////
+	public Transaction(Long id, LocalDate date, Category category, String description, int value,
+				String paymentMethod) {
+			super();
+			this.id = id;
+			this.date = date;
+			this.category = category;
+			this.description = description;
+			this.value = value;
+			this.paymentMethod = paymentMethod;
+		}
+
+	////Getters and setters///////////
 	public Long getId() {
 		return id;
 	}
@@ -67,6 +71,12 @@ public Transaction(Long id, LocalDate date, Category category, String descriptio
 	public void setValue(int value) {
 		this.value = value;
 	}
-	
-	
+
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 }
