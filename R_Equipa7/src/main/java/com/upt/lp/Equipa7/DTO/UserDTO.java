@@ -2,8 +2,6 @@ package com.upt.lp.Equipa7.DTO;
 
 import java.util.List;
 
-import com.upt.lp.Equipa7.entity.Category;
-
 public class UserDTO {
     private Long id;
 	private String username;
