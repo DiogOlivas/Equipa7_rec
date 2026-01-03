@@ -1,6 +1,7 @@
 
 package com.upt.lp.Equipa7.service;
 
+import com.upt.lp.Equipa7.DTO.ChangePasswordDTO;
 import com.upt.lp.Equipa7.DTO.RegisterUserDTO;
 import com.upt.lp.Equipa7.DTO.UserDTO;
 import com.upt.lp.Equipa7.entity.User;
@@ -60,33 +61,17 @@ public class UserService {
         userRepository.save(user);
     }
 
-    
-    public User updateUser(Long id, UserDTO dto) {
-        User existing = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public void changePassword(User user, ChangePasswordDTO dto) {
 
-        if (dto.getUsername() != null) existing.setUsername(dto.getUsername());
-        if (dto.getEmail() != null) existing.setEmail(dto.getEmail());
-        if (dto.getPassword() != null) existing.setPassword(dto.getPassword());
-
-        if (dto.getTransactionIds() != null) {
-            List<Transaction> transactions = transactionRepository.findAllById(dto.getTransactionIds());
-            existing.setTransactions(transactions);
+        if (!encoder.matches(dto.oldPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Wrong password");
         }
 
-        if (dto.getCategoryIds() != null) {
-            List<Category> categories = categoryRepository.findAllById(dto.getCategoryIds());
-            existing.setCategories(categories);
-        }
-        
-        return userRepository.save(existing);
+        user.setPassword(encoder.encode(dto.newPassword()));
+        userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-    }
-    
-    public long getUserCount() {
-        return userRepository.count();
     }
 }
