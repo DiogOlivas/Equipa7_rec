@@ -1,6 +1,7 @@
 package com.upt.lp.Equipa7.entity;
 import java.time.LocalDate;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Transaction {
@@ -9,18 +10,22 @@ public class Transaction {
 	private Long id;
 	
 	private LocalDate date;
-	
-	private Category category;
-	
+
 	private String description;
 	
-	private int value;
+	private double value;
 	
 	private String paymentMethod;
+
+	@ManyToOne private User user;
+
+	@ManyToOne private Category category;
+
+	//
 	
 	public Transaction () {}
 
-	public Transaction(Long id, LocalDate date, Category category, String description, int value,
+	public Transaction(Long id, LocalDate date, Category category, String description, double value,
 				String paymentMethod) {
 			super();
 			this.id = id;
@@ -29,6 +34,8 @@ public class Transaction {
 			this.description = description;
 			this.value = value;
 			this.paymentMethod = paymentMethod;
+			this.user = user;
+			
 		}
 
 	////Getters and setters///////////
@@ -47,6 +54,12 @@ public class Transaction {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Category getCategory() {
 		return category;
@@ -64,11 +77,11 @@ public class Transaction {
 		this.description = description;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 
@@ -79,4 +92,6 @@ public class Transaction {
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
+	
 }
+
