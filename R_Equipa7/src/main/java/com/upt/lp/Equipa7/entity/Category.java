@@ -53,7 +53,7 @@ public class Category {
 		return name;
 	}
 
-	public void getDesc(String desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 

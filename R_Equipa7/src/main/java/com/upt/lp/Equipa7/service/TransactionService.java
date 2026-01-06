@@ -1,15 +1,16 @@
 package com.upt.lp.Equipa7.service;
 
 import org.springframework.stereotype.Service;
-import com.upt.lp.Equipa7.repository.TransactionRespository;
+
+import com.upt.lp.Equipa7.repository.TransactionRepository;
 import java.util.*;
 import com.upt.lp.Equipa7.entity.Transaction;
 //
 @Service
 public class TransactionService {
-    private final TransactionRespository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    public TransactionService(TransactionRespository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
     public List<com.upt.lp.Equipa7.entity.Transaction> getAllTransactions() {

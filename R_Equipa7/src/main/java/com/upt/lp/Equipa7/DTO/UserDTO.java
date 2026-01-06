@@ -8,7 +8,7 @@ public class UserDTO {
 	private String email;
 	private String password;
 	private List<Long> categoryIds;
-	private List<Long> TransactionIds;
+	private List<Long> transactionIds;
 	
 	public UserDTO() {}
 
@@ -20,7 +20,7 @@ public class UserDTO {
 		this.email = email;
 		this.password = password;
 		this.categoryIds = categoryIds;
-		TransactionIds = transactionIds;
+		this.transactionIds = transactionIds;
 	}
 
 	public Long getId() {
@@ -64,11 +64,11 @@ public class UserDTO {
 	}
 
 	public List<Long> getTransactionIds() {
-		return TransactionIds;
+		return transactionIds;
 	}
 
 	public void setTransactionIds(List<Long> transactionIds) {
-		TransactionIds = transactionIds;
+		this.transactionIds = transactionIds;
 	}
 	
 }

@@ -1,7 +1,6 @@
 package com.upt.lp.Equipa7.controller;
 
 import com.upt.lp.Equipa7.DTO.RegisterUserDTO;
-import com.upt.lp.Equipa7.DTO.UserDTO;
 import com.upt.lp.Equipa7.entity.User;
 import com.upt.lp.Equipa7.service.UserService;
 
@@ -40,11 +39,6 @@ import java.util.List;
         @PostMapping("/login")
         public ResponseEntity<String> login() {
             return ResponseEntity.ok("Login successful");
-        }
-        
-        @PutMapping("/{id}")
-        public User update(@PathVariable Long id, @RequestBody UserDTO dto) {
-            return userService.updateUser(id, dto);
         }
 
         @DeleteMapping("/{id}") 

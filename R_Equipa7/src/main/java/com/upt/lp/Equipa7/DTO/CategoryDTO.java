@@ -1,8 +1,6 @@
 package com.upt.lp.Equipa7.DTO;
 
 import java.util.List;
-
-import com.upt.lp.Equipa7.entity.Transaction;
 import com.upt.lp.Equipa7.entity.User;
 
 public class CategoryDTO {

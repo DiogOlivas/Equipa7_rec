@@ -1,6 +1,5 @@
 package com.upt.lp.Equipa7.mapping;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import com.upt.lp.Equipa7.DTO.CategoryDTO;

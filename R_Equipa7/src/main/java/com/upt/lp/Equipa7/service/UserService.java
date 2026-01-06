@@ -3,38 +3,31 @@ package com.upt.lp.Equipa7.service;
 
 import com.upt.lp.Equipa7.DTO.ChangePasswordDTO;
 import com.upt.lp.Equipa7.DTO.RegisterUserDTO;
-import com.upt.lp.Equipa7.DTO.UserDTO;
 import com.upt.lp.Equipa7.entity.User;
-import com.upt.lp.Equipa7.entity.Transaction;
-import com.upt.lp.Equipa7.entity.Category;
 import com.upt.lp.Equipa7.repository.UserRepository;
-import com.upt.lp.Equipa7.repository.TransactionRepository;
-import com.upt.lp.Equipa7.repository.CategoryRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import com.upt.lp.Equipa7.entity.UserType;
+
 
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final TransactionRepository transactionRepository;
-    private final CategoryRepository categoryRepository;
     private final PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository,TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
-        this.transactionRepository = transactionRepository;
-        this.categoryRepository = categoryRepository;
+		this.encoder = encoder;
     }
 
     
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+    
 
     
     public User getUser(Long id) {
