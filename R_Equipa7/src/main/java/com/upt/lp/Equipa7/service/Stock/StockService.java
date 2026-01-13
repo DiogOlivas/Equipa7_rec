@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import com.upt.Equipa7.Config.StockClient;
 import com.upt.lp.Equipa7.DTO.Stock.StockPriceDTO;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public class StockService {
 
@@ -13,7 +15,7 @@ public class StockService {
         this.stockClient = stockClient;
     }
 
-    public StockPriceDTO getStockPrice(String symbol) {
+    public Mono<StockPriceDTO> getStockPrice(String symbol) {
         return stockClient.getCurrentPrice(symbol);
     }
 }
