@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.upt.lp.Equipa7.DTO.Stock.StockPriceDTO;
 import com.upt.lp.Equipa7.service.Stock.StockService;
 
+import jakarta.validation.constraints.NotBlank;
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/stocks")
 public class StockController {
@@ -19,7 +22,7 @@ public class StockController {
     }
 
     @GetMapping("/{symbol}")
-    public StockPriceDTO getStock(@PathVariable String symbol) {
+    public Mono<StockPriceDTO> getStock(@PathVariable @NotBlank String symbol) {
         return stockService.getStockPrice(symbol);
     }
 }

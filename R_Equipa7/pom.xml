@@ -58,6 +58,11 @@
 		    <artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.upt.lp</groupId>
+			<artifactId>Equipa15</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
