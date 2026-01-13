@@ -19,22 +19,24 @@ public class CategoryService {
     }
 
     public Category getCategory(Long id) {
-        return categoryRepository.findbyid(id).orElse(null);
+        return categoryRepository.findById(id).orElse(null);
     }
 
     public Category createCategory(Category cat) {
         return categoryRepository.save(cat);
     }
     public Category updateCategory(Long id, Category cat) {
-        Category existing = categoryRepository.findbyid(id)
-                .orElseThrow(() -> new RunTimeException("Categoria não foi encontrada."));
+        Category existing = categoryRepository.findById(id)
+        		.orElseThrow(() -> new RuntimeException("Category not found."));
         existing.setName(cat.getName());
+        existing.setDesc(cat.getDesc());
         existing.setBudget(cat.getBudget());
+        existing.setTransactions(cat.getTransactions());
 
         return categoryRepository.save(existing);
     }
 
     public void deleteCategory(Long id) {
-        categoryRepository.delete(id);
+        categoryRepository.deleteById(id);
     }
 }

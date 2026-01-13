@@ -1,7 +1,6 @@
 package com.upt.lp.Equipa7.entity;
 import java.time.LocalDate;
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 public class Transaction {
@@ -26,7 +25,7 @@ public class Transaction {
 	public Transaction () {}
 
 	public Transaction(Long id, LocalDate date, Category category, String description, double value,
-				String paymentMethod) {
+				String paymentMethod, User user) {
 			super();
 			this.id = id;
 			this.date = date;

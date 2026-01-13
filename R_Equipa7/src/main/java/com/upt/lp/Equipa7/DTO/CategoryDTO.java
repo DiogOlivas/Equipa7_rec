@@ -1,61 +1,72 @@
 package com.upt.lp.Equipa7.DTO;
 
 import java.util.List;
+import com.upt.lp.Equipa7.entity.User;
 
 public class CategoryDTO {
     private Long id;
-    private String nome;
-    private String descricao;
-    private Float orcamento;
-    private List<Float> gastos;
+    private User user;
+    private String name;
+    private String desc;
+    private double budget;
+    private List<Long> transactionIds;
 
     public CategoryDTO() {}
 
-    public CategoryDTO(Long id, String nome, String descricao, Float orcamento, List<Float> gastos) {
+    public CategoryDTO(Long id, User user, String name, String desc, double budget, List<Long> transactionIds) {
         this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.orcamento = orcamento;
-        this.gastos = gastos;
+        this.setUser(user);
+        this.name = name;
+        this.desc = desc;
+        this.budget = budget;
+        this.transactionIds = transactionIds;
     }
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.name = nome;
     }
 
     public String getDescricao() {
-        return descricao;
+        return desc;
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.desc = descricao;
     }
 
-    public Float getOrcamento() {
-        return orcamento;
+    public double getBudget() {
+        return budget;
     }
 
-    public void setOrcamento(Float orcamento) {
-        this.orcamento = orcamento;
+    public void setBudget(double budget) {
+        this.budget = budget;
     }
 
-    public List<Float> getGastos() {
-        return gastos;
+    public List<Long> getTransactions() {
+        return transactionIds;
     }
 
-    public void setGastos(List<Float> gastos) {
-        this.gastos = gastos;
+    public void setGastos(List<Long> transactionIds) {
+        this.transactionIds = transactionIds;
     }
 }
