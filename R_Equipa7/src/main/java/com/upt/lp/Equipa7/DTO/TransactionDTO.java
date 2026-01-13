@@ -1,25 +1,24 @@
 package com.upt.lp.Equipa7.DTO;
 
-import java.util.List;
 
 public class TransactionDTO {
     private Long id;
     private double value;
     private String date;
     private String description;
-    private Long userId; 
-    private List<Long> categoryIds; //list of category IDs 
+    private String paymentMethod; 
+    private String category;
     
 
     public TransactionDTO() {}
 
-    public TransactionDTO(Long id, double value, String date, String description, Long userId, List<Long> categoryIds) {
+    public TransactionDTO(Long id, double value, String date, String description, String paymentMethod, String category) {
         this.id = id;
         this.value = value;
         this.description = description;
-        this.userId = userId;
+        this.paymentMethod = paymentMethod;
         this.date = date;
-        this.categoryIds = categoryIds;
+        this.category = category;
     }
     //
     public Long getId(){
@@ -46,17 +45,17 @@ public class TransactionDTO {
     public void setDescription(String description){
         this.description = description;
     }
-    public Long getUserId(){
-        return userId;
+    public String getPaymentMethod(){
+        return paymentMethod;
     }
-    public void setUserId(Long userId){
-        this.userId = userId;
+    public void setPaymentMethod(String paymentMethod){
+        this.paymentMethod = paymentMethod;
     }
-    public List<Long> getCategoryIds() {
-        return categoryIds;
+    public String getCategory() {
+        return category;
     }
-    public void setCategoryIds(List<Long> categoryIds) {
-        this.categoryIds = categoryIds;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 }
