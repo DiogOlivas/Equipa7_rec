@@ -1,12 +1,11 @@
 package com.upt.lp.Equipa7.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.upt.lp.Equipa7.repository.CategoryRepository;
 import com.upt.lp.Equipa7.repository.TransactionRepository;
 import com.upt.lp.Equipa7.repository.UserRepository;
-
-import java.time.LocalDate;
 import java.util.*;
 
 import com.upt.lp.Equipa7.DTO.TransactionDTO;
@@ -33,32 +32,37 @@ public class TransactionService {
                 .orElseThrow(() -> new RuntimeException("Transaction not found"));
     }
 
-    public Transaction createTransaction(TransactionDTO dto) {      
-    	Transaction transaction = new Transaction();
+    @Transactional
+    public Transaction createTransaction(TransactionDTO dto) {
 
-    	User user = userRepository.findById(dto.getUserId())
-    			.orElseThrow(() -> new RuntimeException("User not found"));
-        
-    	transaction.setUser(user);
+        User user = userRepository.findById(dto.getUserId())
+            .orElseThrow(() -> new RuntimeException("User not found"));
 
- 
-    	if (dto.getCategoryId() != null) {
-        
-    		Category category = categoryRepository.findById(dto.getCategoryId())
-    				.orElseThrow(() -> new RuntimeException("Category not found"));
+        if (user.getBudget() < dto.getValue()) {
+            throw new RuntimeException("Insufficient budget");
+        }
+
+        user.setBudget(user.getBudget() - dto.getValue());
+
+        Transaction transaction = new Transaction();
+        transaction.setUser(user);
+
+        if (dto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
             transaction.setCategory(category);
         }
-    	
-    	LocalDate date = LocalDate.parse(dto.getDate());
-    	transaction.setDate(date);
+
+        transaction.setDate(dto.getDate());
         transaction.setDescription(dto.getDescription());
-    	transaction.setValue(dto.getValue());
-    	transaction.setPaymentMethod(dto.getPaymentMethod());
-    	
+        transaction.setValue(dto.getValue());
+        transaction.setPaymentMethod(dto.getPaymentMethod());
 
-    	return transactionRepository.save(transaction);
-    }    
+        transactionRepository.save(transaction);
+        userRepository.save(user);
 
+        return transaction;
+    }
     public Transaction saveTransaction(Transaction t) {
         return transactionRepository.save(t);
     }

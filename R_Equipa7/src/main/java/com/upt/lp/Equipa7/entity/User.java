@@ -20,7 +20,7 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Transaction> transactions;
 	
-	private double balance;
+	private double budget;
 	
 	public User( ) {}
 
@@ -81,11 +81,11 @@ public class User {
 		this.transactions = transactions;
 	}
 
-	public double getBalance() {
-		return balance;
+	public double getBudget() {
+		return budget;
 	}
 
-	public void setBalance(double balance) {
-		this.balance = balance;
+	public void setBudget(double budget) {
+		this.budget = budget;
 	}
 }

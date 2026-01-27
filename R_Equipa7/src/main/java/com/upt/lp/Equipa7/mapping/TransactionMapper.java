@@ -6,17 +6,15 @@ import com.upt.lp.Equipa7.entity.User;
 import com.upt.lp.Equipa7.repository.UserRepository;
 import com.upt.lp.Equipa7.repository.CategoryRepository;
 import com.upt.lp.Equipa7.entity.Category;
-import java.time.LocalDate;
 
 
 public class TransactionMapper {
-    //ENTITY TO DTO
 	public static TransactionDTO toDTO(Transaction tx) {
 	    if (tx == null) return null;
 
 	    TransactionDTO dto = new TransactionDTO();
 	    dto.setId(tx.getId());
-	    dto.setDate(tx.getDate().toString());
+	    dto.setDate(tx.getDate());
 	    dto.setDescription(tx.getDescription());
 	    dto.setValue(tx.getValue());
 	    dto.setPaymentMethod(tx.getPaymentMethod());
@@ -43,8 +41,8 @@ public class TransactionMapper {
 
             transaction.setValue(dto.getValue());
 
-            if (dto.getDate() != null && !dto.getDate().isEmpty()) {
-                transaction.setDate(LocalDate.parse(dto.getDate()));
+            if (dto.getDate() != null) {
+                transaction.setDate(dto.getDate());
             }
 
             transaction.setDescription(dto.getDescription());
