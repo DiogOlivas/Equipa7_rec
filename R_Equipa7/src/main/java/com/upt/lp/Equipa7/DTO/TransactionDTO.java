@@ -1,11 +1,12 @@
 package com.upt.lp.Equipa7.DTO;
 
+import java.time.LocalDate;
 
 public class TransactionDTO {
     private Long id;
     private Long userId;
     private double value;
-    private String date;
+    private LocalDate date;
     private String description;
     private String paymentMethod; 
     private Long categoryId;
@@ -13,7 +14,7 @@ public class TransactionDTO {
 
     public TransactionDTO() {}
 
-    public TransactionDTO(Long id, double value, String date, String description, Long userId, String paymentMethod, Long categoryId) {
+    public TransactionDTO(Long id, double value, LocalDate date, String description, Long userId, String paymentMethod, Long categoryId) {
         this.id = id;
         this.value = value;
         this.description = description;
@@ -35,10 +36,10 @@ public class TransactionDTO {
     public void setValue(double value){
         this.value = value;
     }
-    public String getDate(){
+    public LocalDate getDate(){
         return date;
     }
-    public void setDate(String date){
+    public void setDate(LocalDate date){
         this.date = date;
     }
     public String getDescription(){

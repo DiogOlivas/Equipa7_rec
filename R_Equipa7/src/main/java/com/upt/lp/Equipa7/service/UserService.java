@@ -1,6 +1,8 @@
 
 package com.upt.lp.Equipa7.service;
 
+import com.upt.lp.Equipa7.DTO.ChangeBudgetDTO;
+import com.upt.lp.Equipa7.DTO.ChangeEmailDTO;
 import com.upt.lp.Equipa7.DTO.ChangePasswordDTO;
 import com.upt.lp.Equipa7.DTO.RegisterUserDTO;
 import com.upt.lp.Equipa7.entity.User;
@@ -12,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 
@@ -21,9 +25,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, PasswordEncoder passwordEnconder) {
         this.userRepository = userRepository;
 		this.encoder = encoder;
+		this.passwordEncoder = passwordEnconder;
     }
 
     public User getCurrentUser() {
@@ -62,23 +69,45 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void changePassword(User user, ChangePasswordDTO dto) {
+	public User findByUsername(@NotBlank String username) {
+		return userRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("User not found"));
+	}
+	
+	  @Transactional
+	    public void changePassword(ChangePasswordDTO dto) {
+	        User user = userRepository.findById(dto.getUserId())
+	                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!encoder.matches(dto.oldPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Wrong password");
+	        if (!passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+	            throw new RuntimeException("Old password does not match");
+	        }
+
+	        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+	        userRepository.save(user);
+	    }
+	  
+    @Transactional
+    public void changeEmail(User user, ChangeEmailDTO dto) {
+        if ((dto.getNewEmail()).equals(user.getEmail())) {
+            throw new IllegalArgumentException("New email must be different.");
         }
-
-        user.setPassword(encoder.encode(dto.newPassword()));
+        if (userRepository.existsByEmail(dto.getNewEmail())) {
+            throw new IllegalArgumentException("Email already in use.");
+        }
+        user.setEmail(dto.getNewEmail());
         userRepository.save(user);
+    }
+
+    @Transactional
+    public User changeBudget(ChangeBudgetDTO dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setBudget(dto.getNewBudget());
+        return userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-
-
-	public User findByUsername(@NotBlank String username) {
-		return userRepository.findByUsername(username)
-				.orElseThrow(() -> new RuntimeException("User not found"));
-	}
 }

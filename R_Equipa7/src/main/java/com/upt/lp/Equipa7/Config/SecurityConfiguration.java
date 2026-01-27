@@ -40,7 +40,7 @@ public class SecurityConfiguration {
             .csrf(csrf -> csrf.disable())
             .userDetailsService(userDetailsService)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/users/register", "/users/login", "/users/change-password", "/transactions", "/transactions/**", "/categories", "/categories/**").permitAll()
+                .requestMatchers("/users", "/users/**", "/transactions", "/transactions/**", "/categories", "/categories/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session ->
