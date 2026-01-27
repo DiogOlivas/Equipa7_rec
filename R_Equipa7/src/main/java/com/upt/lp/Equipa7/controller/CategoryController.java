@@ -1,5 +1,6 @@
 package com.upt.lp.Equipa7.controller;
 
+import com.upt.lp.Equipa7.DTO.CategoryDTO;
 import com.upt.lp.Equipa7.entity.Category;
 import com.upt.lp.Equipa7.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public Category create(@RequestBody Category cat) {
-        return categoryService.createCategory(cat);
+    public Category create(@RequestBody CategoryDTO dto) {
+        return categoryService.createCategory(dto);
     }
 
     @PutMapping("/{id}") 
-    public Category update(@PathVariable Long id, @RequestBody Category cat) {
-        return categoryService.updateCategory(id, cat);
+    public Category update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+        return categoryService.updateCategory(id, dto);
     }
 
     @DeleteMapping("/{id}")

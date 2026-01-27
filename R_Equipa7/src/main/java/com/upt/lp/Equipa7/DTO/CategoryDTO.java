@@ -5,7 +5,7 @@ import com.upt.lp.Equipa7.entity.User;
 
 public class CategoryDTO {
     private Long id;
-    private User user;
+    private Long userId;
     private String name;
     private String desc;
     private double budget;
@@ -13,9 +13,9 @@ public class CategoryDTO {
 
     public CategoryDTO() {}
 
-    public CategoryDTO(Long id, User user, String name, String desc, double budget, List<Long> transactionIds) {
+    public CategoryDTO(Long id, Long userId, String name, String desc, double budget, List<Long> transactionIds) {
         this.id = id;
-        this.setUser(user);
+        this.userId = userId;
         this.name = name;
         this.desc = desc;
         this.budget = budget;
@@ -30,28 +30,28 @@ public class CategoryDTO {
         this.id = id;
     }
     
-    public User getUser() {
-		return user;
-	}
+    public Long getUserId() { 
+    	return userId; 
+   }
+    
+    public void setUserId(Long userId) { 
+    	this.userId = userId; 
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-    public String getNome() {
+    public String getName() {
         return name;
     }
 
-    public void setNome(String nome) {
+    public void setName(String nome) {
         this.name = nome;
     }
 
-    public String getDescricao() {
+    public String getDesc() {
         return desc;
     }
 
-    public void setDescricao(String descricao) {
-        this.desc = descricao;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public double getBudget() {

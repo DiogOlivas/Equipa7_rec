@@ -6,6 +6,10 @@ import com.upt.lp.Equipa7.DTO.RegisterUserDTO;
 import com.upt.lp.Equipa7.entity.User;
 import com.upt.lp.Equipa7.repository.UserRepository;
 
+import jakarta.validation.constraints.NotBlank;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -22,12 +26,17 @@ public class UserService {
 		this.encoder = encoder;
     }
 
+    public User getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        return userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+    }
     
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-    
-
     
     public User getUser(Long id) {
         return userRepository.findById(id)
@@ -66,4 +75,10 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+
+	public User findByUsername(@NotBlank String username) {
+		return userRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("User not found"));
+	}
 }

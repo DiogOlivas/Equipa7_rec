@@ -4,6 +4,8 @@ import com.upt.lp.Equipa7.service.TransactionService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
+
+import com.upt.lp.Equipa7.DTO.TransactionDTO;
 import com.upt.lp.Equipa7.entity.Transaction;
 import java.util.List;
 
@@ -26,9 +28,8 @@ public class TransactionController {
         return transactionService.getTransaction(id);
     }
     @PostMapping
-    public Transaction create(@RequestBody Transaction transaction) {
-        return transactionService.createTransaction(transaction);
-
+    public Transaction create(@RequestBody TransactionDTO dto) {
+        return transactionService.createTransaction(dto);
     }
     @PutMapping("/{id}")
     public Transaction update(@PathVariable Long id, @RequestBody Transaction transaction) {

@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 
 import com.upt.lp.Equipa7.DTO.CategoryDTO;
 import com.upt.lp.Equipa7.entity.Category;
+import com.upt.lp.Equipa7.entity.User;
+import com.upt.lp.Equipa7.repository.UserRepository;
 
 public class CategoryMapper {
 
@@ -12,7 +14,7 @@ public class CategoryMapper {
 		if (cat == null) return null;
 		return new CategoryDTO(
 				cat.getId(),
-				cat.getUser(),
+	            cat.getUser() != null ? cat.getUser().getId() : null,
 				cat.getName(),
 				cat.getDesc(),
 				cat.getBudget(),
@@ -24,10 +26,10 @@ public class CategoryMapper {
 	}
 
 	public static Category toEntity(CategoryDTO dto) {
-		 if (dto == null) return null;
-	 	Category cat = new Category();
-	 	cat.setId(dto.getId() != null ? dto.getId() : 0); 
-	 	cat.setName(dto.getNome());
-	 	return cat;
-	 }
+	    Category c = new Category();
+	    c.setName(dto.getName());
+	    c.setDesc(dto.getDesc());
+	    c.setBudget(dto.getBudget());
+	    return c;
+	}
 }

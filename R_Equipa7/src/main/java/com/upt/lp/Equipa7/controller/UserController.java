@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
     @RestController
     @RequestMapping("/users")
@@ -47,7 +48,7 @@ import java.util.List;
         }
     
         @PostMapping("/login")
-        public ResponseEntity<String> login(
+        public ResponseEntity<Map<String, Object>> login(
                 @RequestBody @Valid LoginUserDTO dto) {
 
         		authenticationManager.authenticate(
@@ -56,7 +57,17 @@ import java.util.List;
                     dto.password()
                 )
             );
-            return ResponseEntity.ok("Login successful");
+        		
+        	User user = userService.findByUsername(dto.username());
+
+        	// Return JSON with user ID and username
+        	Map<String, Object> response = Map.of(
+        			"id", user.getId(),
+        		    "username", user.getUsername()
+        	);
+
+        		    return ResponseEntity.ok(response);	
+            //return ResponseEntity.ok("Login successful");
         }
         
         @PostMapping("/change-password")
